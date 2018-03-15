@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例 - 边框表格</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/ECharts.js"></script>
+
+</head>
+<body>
+
+<table class="table table-bordered">
+    <caption style="text-align: center; font-size: 30px; color: black">2018年3月15日运营数据</caption>
+    <thead>
+    <tr>
+        <th>日期</th>
+        <th>新增注册用户</th>
+        <th>新增开户用户</th>
+        <th>新增入金总额</th>
+        <th>本月总注册用户</th>
+        <th>本月用户注册指标完成率(指标：800个)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr id="dataId1"></tr>
+    <tr id="dataId2"></tr>
+    <tr id="dataId3"></tr>
+    </tbody>
+</table>
+
+<!--新增注册用户-->
+<div  id="main" style="width: 100%;height:400px;"></div>
+<!--新增入金总额-->
+<div  id="main1" style="width: 100%;height:400px;"></div>
+<!--本月总注册用户-->
+<div  id="main2" style="width: 100%;height:400px;"></div>
+<!--每日指标完成率-->
+<div  id="main3" style="width: 100%;height:400px;"></div>
+
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        //表格
+        var data1 = new Array("今天",10,5,1000,200,25+"%");
+        var data2 = ["与昨天相比",8,4,986,180,20+"%"];
+        var data3 = ["与前天相比",9,3,800,150,15+"%"];
+        var list1="";
+        for (var i=0;i<data1.length;i++)
+        {
+            list1 +="<td>"+data1[i]+"</td>";
+        }
+        document.getElementById('dataId1').innerHTML = list1;
+
+        var list2="";
+        for (var i=0;i<data2.length;i++)
+        {
+            list2 +="<td>"+data2[i]+"</td>";
+        }
+        document.getElementById('dataId2').innerHTML = list2;
+
+        var list3="";
+        for (var i=0;i<data3.length;i++)
+        {
+            list3 +="<td>"+data3[i]+"</td>";
+        }
+        document.getElementById('dataId3').innerHTML = list3;
+
+
+        //新增注册用户折线图
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        option = {
+            title : {
+                text: '本周新增注册用户数',
+                x: 'center'
+                // align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            legend: {
+                data:['新注册','新开户'],
+                x:'right'
+            },
+            xAxis: {
+                type: 'category',
+                data: ['3月12日', '3月13日', '3月14日', '3月15日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'新开户(个)',
+                    type:'line',
+                    stack: '总量',
+                    data:[15, 20, 21, 10],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    }
+                },
+                {
+                    name:'新注册(个)',
+                    type:'line',
+                    stack: '总量',
+                    data:[16, 21, 22, 11],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    }
+                }
+
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+
+        //新增入金总额
+        var myChart = echarts.init(document.getElementById('main1'));
+        option = {
+            title : {
+                text: '本周每日入金总额',
+                x: 'center'
+                // align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['3月12日', '3月13日', '3月14日', '3月15日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'入金总额（$）',
+                    type:'line',
+                    stack: '总量',
+                    data:[1400, 920, 1370, 1360],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+
+        //本月总注册用户
+        var myChart = echarts.init(document.getElementById('main2'));
+        option = {
+            title : {
+                text: '本月总注册用户',
+                x: 'center'
+                // align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['3月12日', '3月13日', '3月14日', '3月15日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'总注册用户（$）',
+                    type:'line',
+                    stack: '总量',
+                    data:[211, 234, 258, 272],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+
+        //本周月指标完成率
+        var myChart = echarts.init(document.getElementById('main3'));
+        option = {
+            title : {
+                text: '本周月指标完成率',
+                x: 'center'
+                // align: 'right'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['3月12日', '3月13日', '3月14日', '3月15日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'本周月指标完成率（%）',
+                    type:'line',
+                    stack: '总量',
+                    data:[26.38, 29.25, 32.25, 34],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+
+
+
+
+
+
+    });
+
+</script>
+
+</body>
+</html>
